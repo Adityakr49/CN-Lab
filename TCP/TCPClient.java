@@ -3,23 +3,27 @@ import java.io.*;
 
 public class TCPClient {
     public static void main(String[] args) throws Exception {
-        Socket sock = new Socket("127.0.0.1", 4000);
-        System.out.println("Enter the file name: ");
-        BufferedReader nameRead = new BufferedReader(new InputStreamReader(System.in));
-        String fname = nameRead.readLine();
-        OutputStream ostream = sock.getOutputStream();
-        PrintWriter pwrite = new PrintWriter(ostream, true);
-        pwrite.println(fname);
+        final String SERVER_IP = "localhost";
+        final int SERVER_PORT = 4000;
 
-        InputStream istream = sock.getInputStream();
-        BufferedReader contentRead = new BufferedReader(new InputStreamReader(istream));
-        String str;
-        while ((str = contentRead.readLine()) != null) {
-            System.out.println(str);
+        try {
+            Socket clientSocket = new Socket(SERVER_IP, SERVER_PORT);
+
+            BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+
+            System.out.print("Enter file name: ");
+            String fileName = inFromUser.readLine();
+
+            outToServer.writeBytes(fileName + '\n');
+
+            String fileContent = inFromServer.readLine();
+            System.out.println("Server response:\n" + fileContent);
+
+            clientSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        contentRead.close();
-        pwrite.close();
-        sock.close();
-        nameRead.close();
     }
 }
