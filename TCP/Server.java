@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 import java.nio.file.*;
-public class S {
+public class Server {
     public static void main(String[] args) throws Exception {
         ServerSocket sersock = new ServerSocket(4000);
         System.out.println("Server Connected, waiting for client");
