@@ -1,5 +1,6 @@
 import java.net.*;
 import java.io.*;
+import java.util.*;
 import java.nio.file.*;
 public class Server {
     public static void main(String[] args) throws Exception {
@@ -7,9 +8,9 @@ public class Server {
         System.out.println("Server Connected, waiting for client");
         Socket sock = sersock.accept();
         System.out.println("Connection successful, waiting for filename");
-        BufferedReader nameRead = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+        Scanner nameRead = new Scanner(new InputStreamReader(sock.getInputStream()));
         PrintWriter pwrite = new PrintWriter(sock.getOutputStream(), true);
-        String fname = nameRead.readLine();
+        String fname = nameRead.nextLine();
         Files.lines(Paths.get(fname)).forEach(pwrite::println);
         System.out.println("Closing connection");
         nameRead.close();
