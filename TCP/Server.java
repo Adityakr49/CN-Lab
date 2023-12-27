@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
-
-public class Server {
+import java.nio.file.*;
+public class S {
     public static void main(String[] args) throws Exception {
         ServerSocket sersock = new ServerSocket(4000);
         System.out.println("Server Connected, waiting for client");
@@ -10,16 +10,10 @@ public class Server {
         BufferedReader nameRead = new BufferedReader(new InputStreamReader(sock.getInputStream()));
         PrintWriter pwrite = new PrintWriter(sock.getOutputStream(), true);
         String fname = nameRead.readLine();
-        BufferedReader contentRead = new BufferedReader(new FileReader(fname));
-        String str;
-        while ((str = contentRead.readLine()) != null) {
-            pwrite.println(str);
-        }
-        contentRead.close();
+        Files.lines(Paths.get(fname)).forEach(pwrite::println);
         System.out.println("Closing connection");
-        pwrite.close();
         nameRead.close();
         sock.close();
         sersock.close();
     }
- }
+}
