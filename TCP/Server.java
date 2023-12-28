@@ -8,12 +8,12 @@ public class Server {
         System.out.println("Server Connected, waiting for client");
         Socket sock = sersock.accept();
         System.out.println("Connection successful, waiting for filename");
-        Scanner nameRead = new Scanner(new InputStreamReader(sock.getInputStream()));
+        Scanner in = new Scanner(new InputStreamReader(sock.getInputStream()));
         PrintWriter pwrite = new PrintWriter(sock.getOutputStream(), true);
-        String fname = nameRead.nextLine();
+        String fname = in.nextLine();
         Files.lines(Paths.get(fname)).forEach(pwrite::println);
         System.out.println("Closing connection");
-        nameRead.close();
+        in.close();
         sock.close();
         sersock.close();
     }
