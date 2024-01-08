@@ -1,4 +1,3 @@
-#Create Simulator
 set ns [new Simulator]
 
 set ntrace [open prog1.tr w]
@@ -24,11 +23,6 @@ set n0 [$ns node]
 set n1 [$ns node]
 set n2 [$ns node]
 
-$n0 label "TCP Source"
-$n2 label "Sink"
-
-$ns color 1 blue
-
 $ns duplex-link $n0 $n1 1Mb 10ms DropTail
 $ns duplex-link $n1 $n2 1Mb 10ms DropTail
 
@@ -45,7 +39,6 @@ $ns connect $tcp0 $sink0
 set cbr0 [new Application/Traffic/CBR]
 $cbr0 set packetSize_ 500
 $cbr0 set rate_ 1Mb
-$cbr0 attach-agent $tcp0
 
 $cbr0 attach-agent $tcp0
 
