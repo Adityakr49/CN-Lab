@@ -10,7 +10,11 @@ public class TCPClient {
         System.out.print("Enter file name: ");
         String fileName = sc.nextLine();
         out.writeBytes(fileName + '\n');
-        String fileContent = in.nextLine();
+        //String fileContent = in.nextLine();
+        StringBuilder fileContent = new StringBuilder();
+        while (in.hasNextLine()) {
+            fileContent.append(in.nextLine()).append("\n");
+        }
         System.out.println("Server response:\n" + fileContent);
         clientSocket.close();
     }
