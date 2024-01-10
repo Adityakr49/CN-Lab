@@ -63,8 +63,8 @@ public class RSACrypto {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int p = 17;
-        int q = 23;
+        int p = 17;//104729
+        int q = 23;//100019
         int n = p * q;
         int phi = (p - 1) * (q - 1);
 

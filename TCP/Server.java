@@ -13,7 +13,6 @@ public class Server {
         String fname = in.nextLine();
         Files.lines(Paths.get(fname)).forEach(pwrite::println);
         System.out.println("Closing connection");
-        Thread.sleep(1000);
         in.close();
         sock.close();
         sersock.close();
